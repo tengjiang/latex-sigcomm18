@@ -20,3 +20,88 @@
   publisher={ACM}
 }
 
+@article{post-copy,
+author = {Hines, Michael and Deshpande, Umesh and Gopalan, Kartik},
+year = {2009},
+month = {07},
+pages = {14-26},
+title = {Post-copy live migration of virtual machines},
+volume = {43},
+journal = {Operating Systems Review},
+doi = {10.1145/1618525.1618528}
+}
+
+@inproceedings{google-live-migration-at-scale,
+author = {Ruprecht, Adam and Jones, Danny and Shiraev, Dmitry and Harmon, Greg and Spivak, Maya and Krebs, Michael and Baker-Harvey, Miche and Sanderson, Tyler},
+title = {VM Live Migration At Scale},
+year = {2018},
+isbn = {9781450355797},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3186411.3186415},
+doi = {10.1145/3186411.3186415},
+abstract = {Uninterrupted uptime is a critical aspect of Virtual Machines (VMs) offered by cloud hosting providers. Google's VMs run on top of rapidly changing infrastructure: we regularly update hardware and host software, and we must quickly respond to failing hardware. Frequent change is critical to both development velocity---deploying new versions of services and infrastructure---and the ability to respond rapidly to defects, including critical security fixes. Typically these updates would be disruptive, resulting in VM termination or restart. In this paper we present how we use VM live migration at scale to eliminate this disruption with minimal impact to the guest, performing over 1,000,0001migrations monthly in our production fleet, with 50ms median blackout, 300ms 99th percentile blackout.},
+booktitle = {Proceedings of the 14th ACM SIGPLAN/SIGOPS International Conference on Virtual Execution Environments},
+pages = {45–56},
+numpages = {12},
+location = {Williamsburg, VA, USA},
+series = {VEE '18}
+}
+
+@article{10.1145/3296975.3186415,
+author = {Ruprecht, Adam and Jones, Danny and Shiraev, Dmitry and Harmon, Greg and Spivak, Maya and Krebs, Michael and Baker-Harvey, Miche and Sanderson, Tyler},
+title = {VM Live Migration At Scale},
+year = {2018},
+issue_date = {March 2018},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {53},
+number = {3},
+issn = {0362-1340},
+url = {https://doi.org/10.1145/3296975.3186415},
+doi = {10.1145/3296975.3186415},
+abstract = {Uninterrupted uptime is a critical aspect of Virtual Machines (VMs) offered by cloud hosting providers. Google's VMs run on top of rapidly changing infrastructure: we regularly update hardware and host software, and we must quickly respond to failing hardware. Frequent change is critical to both development velocity---deploying new versions of services and infrastructure---and the ability to respond rapidly to defects, including critical security fixes. Typically these updates would be disruptive, resulting in VM termination or restart. In this paper we present how we use VM live migration at scale to eliminate this disruption with minimal impact to the guest, performing over 1,000,0001migrations monthly in our production fleet, with 50ms median blackout, 300ms 99th percentile blackout.},
+journal = {SIGPLAN Not.},
+month = {mar},
+pages = {45–56},
+numpages = {12}
+}
+
+
+
+@ARTICLE{file-backed-article,
+  author={Peng, Ivy B. and Gokhale, Maya B. and Youssef, Karim and Iwabuchi, Keita and Pearce, Roger},
+  journal={IEEE Transactions on Parallel and Distributed Systems}, 
+  title={Enabling Scalable and Extensible Memory-Mapped Datastores in Userspace}, 
+  year={2022},
+  volume={33},
+  number={4},
+  pages={866-877},
+  keywords={Concurrent computing;Kernel;Databases;Optimization;Task analysis;Scalability;Prefetching;Data-intensive;userspace;memory mapping;mmap;memory-mapped I/O},
+  doi={10.1109/TPDS.2021.3086302}}
+
+@INPROCEEDINGS{file-backed-proceeding,
+  author={Peng, Ivy and McFadden, Marty and Green, Eric and Iwabuchi, Keita and Wu, Kai and Li, Dong and Pearce, Roger and Gokhale, Maya},
+  booktitle={2019 IEEE/ACM Workshop on Memory Centric High Performance Computing (MCHPC)}, 
+  title={UMap: Enabling Application-driven Optimizations for Page Management}, 
+  year={2019},
+  volume={},
+  number={},
+  pages={71-78},
+  keywords={Memory management;Kernel;Optimization;Prefetching;Task analysis;memory mapping;memmap;page fault;user- space paging;userfaultfd;page management},
+  doi={10.1109/MCHPC49590.2019.00017}}
+
+@misc{uffd-blocking,
+  author = {Jonathan Corbet},
+  title = {Blocking userfaultfd() kernel-fault handling},
+  year = {2020},
+  howpublished = {\url{https://lwn.net/Articles/819834/}},
+    note = "[Online; accessed May 2024]"
+}
+
+
+
+
+
+
+https://www.kernel.org/doc/Documentation/vm/userfaultfd.txt

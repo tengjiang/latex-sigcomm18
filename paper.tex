@@ -2,6 +2,60 @@
 
 \usepackage[english]{babel}
 \usepackage{blindtext}
+\usepackage{listings}
+
+%\usepackage[compact]{titlesec}
+\newcommand{\newtodo}[1]{\textcolor{red}{#1}}
+
+
+\usepackage{enumitem}
+\setitemize{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}
+\setenumerate{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}
+\setdescription{itemsep=0pt,topsep=0pt,parsep=0pt,partopsep=0pt,itemindent=0em,leftmargin=0.5em}
+
+% \us: "microseconds"
+\newcommand{\us}{\textmu{}s\xspace}
+
+%compressed environments
+\newenvironment{denseitemize}{
+\begin{itemize}[topsep=2pt, partopsep=0pt, leftmargin=1.5em]
+  \setlength{\itemsep}{2pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{itemize}}
+
+\newenvironment{denseenum}{
+\begin{enumerate}[topsep=2pt, partopsep=0pt, leftmargin=1.5em]
+  \setlength{\itemsep}{2pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{enumerate}}
+
+\def\ie{{i.e.\ }}
+\def\eg{{e.g.,\ }}
+\def\etal{{et al.\xspace}}
+\def\wrt{{w.r.t.\xspace}}
+\def\etc{etc.\xspace}
+
+\def\name{\texttt{cache\_ext}\xspace}
+
+\newcommand{\tailpct}[0]{99\textsuperscript{th}-percentile}
+\newcommand{\tailpctnnn}[0]{99.9\textsuperscript{th}-percentile}
+
+\newcommand{\taillatency}[0]{\tailpct{} latency}
+\newcommand{\taillatencynnn}[0]{\tailpctnnn{} latency}
+
+\iftrue
+\newcommand{\asaf}[1]{\textcolor{red}{\{Asaf: #1\}}}
+\newcommand{\tal}[1]{\textcolor{red}{\{Tal: #1\}}}
+\newcommand{\teng}[1]{\textcolor{red}{\{Teng: #1\}}}
+\else
+\newcommand{\asaf}[1]{}
+\newcommand{\tal}[1]{}
+\newcommand{\teng}[1]{}
+\fi
+
+\newcommand{\uffd}{\texttt{userfaultfd()}}
 
 % Copyright
 \renewcommand\footnotetextcopyrightpermission[1]{} % removes footnote with conference info
@@ -32,34 +86,53 @@
 
 
 \begin{document}
-\title{A \LaTeX\ Template for SIGCOMM 18}
-
-%\titlenote{Produces the permission block, and copyright information}
-%\subtitle{Extended Abstract}
+\title{Custom Page Fault Handling With eBPF}
 
 \author{Paper \# XXX, XXX pages}
-% \author{Firstname Lastname}
-% \authornote{Note}
-% \orcid{1234-5678-9012}
-% \affiliation{%
-%   \institution{Affiliation}
-%   \streetaddress{Address}
-%   \city{City} 
-%   \state{State} 
-%   \postcode{Zipcode}
-% }
-% \email{email@domain.com}
 
 % The default list of authors is too long for headers}
 \renewcommand{\shortauthors}{X.et al.}
 
-\begin{abstract}
-    \blindtext
-\end{abstract}
+\input{abstract}
+
+
 
 \maketitle
 
-\input{body}
+
+
+\input{1_introduction}
+\input{2_motivation}
+\input{3_design}
+% \input{4_evaluation}
+\input{5_conclusion}
+
+\section{TODO}
+\teng{header and footer}
+
+The abstract is a little too vague.
+\begin{lstlisting}
+static inline bool vma_can_userfault(struct vm_area_struct *vma,
+				     unsigned long vm_flags)
+{
+	if ((vm_flags & VM_UFFD_MINOR) &&
+	    (!is_vm_hugetlb_page(vma) && !vma_is_shmem(vma)))
+		return false;
+#ifndef CONFIG_PTE_MARKER_UFFD_WP
+	/*
+	 * If user requested uffd-wp but not enabled pte markers for
+	 * uffd-wp, then shmem & hugetlbfs are not supported but only
+	 * anonymous.
+	 */
+	if ((vm_flags & VM_UFFD_WP) && !vma_is_anonymous(vma))
+		return false;
+#endif
+	return vma_is_anonymous(vma) || is_vm_hugetlb_page(vma) ||
+	    vma_is_shmem(vma);
+}
+
+\end{lstlisting}
+
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{reference}

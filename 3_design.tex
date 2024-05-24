@@ -1,0 +1,43 @@
+\section{System Design}
+\label{sec:design}
+
+
+ Figure xxx is the overall design of our eBPF-powered page fault-handling routine.
+
+ 
+
+ % \textbf{Initialization}. We first communicate with the BPF-fault subsystem to learn about what features are available (This is  UFFDIO_API but I guess we don't need it.)
+
+\textbf{Loading}. When loading the eBPF program, the user specifies how page faults should be handled. \teng{Where should we discuss how to resolve page faults (the scratch memory design?)}
+% There are three basic ways to resolve user faults:
+
+% UFFDIO_COPY atomically copies some existing page contents from userspace.
+
+% UFFDIO_ZEROPAGE atomically zeros the new page.
+
+% UFFDIO_CONTINUE maps an existing, previously-populated page.
+
+\textbf{The eBPF verifier} will be able to do checking in multiple folds (general, like dereferencing NULL pointer, and application-specific, like type of the fault handling, ... Refer to uffd)
+
+\textbf{Attaching} the eBPF program to the \texttt{vm\_area\_struct}. When attaching the program, we need to split/merge virtual memory areas correspondingly.
+
+
+When a page fault occurs, we "intercept" the page fault and call \texttt{handle\_bpf\_fault()} instead of going further into xxx. In a real application, the memory might be stored locally in persistent storage, or stored remotely - (We might be able to leverage XRP and XDP here?)
+
+Notice that since eBPF programs run in the kernel, kernel crossing is bypassed.
+
+\textbf{Runtime update \teng{I don't know what to call this}}. When memory space changed, the program reference count need to increment/decrement accordingly, and some policies need to be enforced. \texttt{mremap()}, \textt{munmap()}, \texttt{fork()}}. Which functionality need to be implemented largely depends on the use case.
+
+ 
+
+This is the design.
+
+We expect our eBPF solution will address the flaws of the \texttt{userfaultfd()} in the following ways:
+\begin{itemize}
+    \item $\uffd$ uses a fault handling
+    \item $\uffd$ has a polling thread, while we handle page faults on the fly
+    \item $\uffd$ incurs kernel crossing and memory copying, while we handle things purely in the kernel space.
+    \item $\uffd$ has security issues, while ...
+\end{itemize}
+
+

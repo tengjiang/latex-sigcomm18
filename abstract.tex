@@ -1,0 +1,3 @@
+\begin{abstract}
+Traditionally, page faults have been handled by the OS kernel, with a fixed set of handling routines for different types of faults. However, some applications may benefit from custom page fault handling routines, allowing them to implement advanced functionality. To this end, the \texttt{userfaultfd()} syscall, which allows applications to handle their page faults in userspace, was introduced on Linux. While \texttt{userfaultfd()} has proven useful in a number of applications, we identify some key deficiencies in its design which limit both performance and applicability. We propose a system which allows using eBPF programs to handle page faults in-kernel, reducing context switching and enabling novel use cases.
+\end{abstract}
