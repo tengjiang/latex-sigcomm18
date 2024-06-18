@@ -1,12 +1,22 @@
-\documentclass[sigconf]{acmart}
+\documentclass[sigconf,9pt]{acmart}
 
-\usepackage[english]{babel}
-\usepackage{blindtext}
-\usepackage{listings}
+%\usepackage[english]{babel}
+%\usepackage{blindtext}
+%\usepackage{listings}
+\usepackage{tikz}
 
 %\usepackage[compact]{titlesec}
-\newcommand{\newtodo}[1]{\textcolor{red}{#1}}
+%\newcommand{\newtodo}[1]{\textcolor{red}{#1}}
 
+\newcommand{\pgftextcircled}[1]{
+    \setbox0=\hbox{#1}%
+    \dimen0\wd0%
+    \divide\dimen0 by 2%
+    \begin{tikzpicture}[baseline=(a.base)]%
+        \useasboundingbox (-\the\dimen0,0pt) rectangle (\the\dimen0,1pt);
+        \node[circle,draw,outer sep=0pt,inner sep=0.1ex] (a) {#1};
+    \end{tikzpicture}
+}
 
 \usepackage{enumitem}
 \setitemize{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}
@@ -55,84 +65,64 @@
 \newcommand{\teng}[1]{}
 \fi
 
-\newcommand{\uffd}{\texttt{userfaultfd()}}
-
-% Copyright
-\renewcommand\footnotetextcopyrightpermission[1]{} % removes footnote with conference info
-\setcopyright{none}
-%\setcopyright{acmcopyright}
-%\setcopyright{acmlicensed}
-%\setcopyright{rightsretained}
-%\setcopyright{usgov}
-%\setcopyright{usgovmixed}
-%\setcopyright{cagov}
-%\setcopyright{cagovmixed}
+\newcommand{\uffd}{\texttt{userfaultfd()}~}
 
 \settopmatter{printacmref=false, printccs=false, printfolios=true}
-
-% DOI
-\acmDOI{}
-
-% ISBN
-\acmISBN{}
-
-%Conference
-%\acmConference[Submitted for review to SIGCOMM]{}
-%\acmYear{2018}
-%\copyrightyear{}
 
 %% {} with no args suppresses printing of the price
 \acmPrice{}
 
-
 \begin{document}
+
+\acmYear{2024}
+\copyrightyear{2024}
+\setcopyright{rightsretained}
+\acmConference[eBPF '24]{Workshop on eBPF and Kernel Extensions}{August 4--8, 2024}{Sydney, NSW, Australia}
+\acmBooktitle{Workshop on eBPF and Kernel Extensions (eBPF '24), August 4--8, 2024, Sydney, NSW, Australia}
+\acmDOI{10.1145/3672197.3673432}
+\acmISBN{979-8-4007-0712-4/24/08}
+
 \title{Custom Page Fault Handling With eBPF}
 
-\author{Paper \# XXX, XXX pages}
+%\author{Submission \#19, 2 pages}
+
+\author{Tal Zussman}
+\authornote{Equal contribution}
+\affiliation{
+    \institution{Columbia University}
+}
+\email{tz2294@columbia.edu}
+
+\author{Teng Jiang}
+\authornotemark[1]
+\affiliation{
+    \institution{Columbia University}
+}
+\email{tj2488@columbia.edu}
+
+\author{Asaf Cidon}
+\affiliation{
+    \institution{Columbia University}
+}
+\email{asaf.cidon@columbia.edu}
 
 % The default list of authors is too long for headers}
-\renewcommand{\shortauthors}{X.et al.}
+%\renewcommand{\shortauthors}{}
 
 \input{abstract}
 
-
-
 \maketitle
 
+% Remove page numbers for camera-ready
+\pagenumbering{gobble}
 
+\input{background}
+\input{motivation}
+\input{design}
 
-\input{1_introduction}
-\input{2_motivation}
-\input{3_design}
-% \input{4_evaluation}
-\input{5_conclusion}
+\input{acknowledgments}
 
-\section{TODO}
-\teng{header and footer}
-
-The abstract is a little too vague.
-\begin{lstlisting}
-static inline bool vma_can_userfault(struct vm_area_struct *vma,
-				     unsigned long vm_flags)
-{
-	if ((vm_flags & VM_UFFD_MINOR) &&
-	    (!is_vm_hugetlb_page(vma) && !vma_is_shmem(vma)))
-		return false;
-#ifndef CONFIG_PTE_MARKER_UFFD_WP
-	/*
-	 * If user requested uffd-wp but not enabled pte markers for
-	 * uffd-wp, then shmem & hugetlbfs are not supported but only
-	 * anonymous.
-	 */
-	if ((vm_flags & VM_UFFD_WP) && !vma_is_anonymous(vma))
-		return false;
-#endif
-	return vma_is_anonymous(vma) || is_vm_hugetlb_page(vma) ||
-	    vma_is_shmem(vma);
-}
-
-\end{lstlisting}
-
+\label{lastpage}
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{reference}

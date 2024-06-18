@@ -1,25 +1,3 @@
-@article{floyd1993random,
-  title={Random early detection gateways for congestion avoidance},
-  author={Floyd, Sally and Jacobson, Van},
-  journal={IEEE/ACM Transactions on Networking (ToN)},
-  volume={1},
-  number={4},
-  pages={397--413},
-  year={1993},
-  publisher={IEEE Press}
-}
-
-@article{stoica2001chord,
-  title={Chord: A scalable peer-to-peer lookup service for internet applications},
-  author={Stoica, Ion and Morris, Robert and Karger, David and Kaashoek, M Frans and Balakrishnan, Hari},
-  journal={ACM SIGCOMM Computer Communication Review},
-  volume={31},
-  number={4},
-  pages={149--160},
-  year={2001},
-  publisher={ACM}
-}
-
 @article{post-copy,
 author = {Hines, Michael and Deshpande, Umesh and Gopalan, Kartik},
 year = {2009},
@@ -31,24 +9,18 @@ journal = {Operating Systems Review},
 doi = {10.1145/1618525.1618528}
 }
 
-@inproceedings{google-live-migration-at-scale,
-author = {Ruprecht, Adam and Jones, Danny and Shiraev, Dmitry and Harmon, Greg and Spivak, Maya and Krebs, Michael and Baker-Harvey, Miche and Sanderson, Tyler},
-title = {VM Live Migration At Scale},
-year = {2018},
-isbn = {9781450355797},
-publisher = {Association for Computing Machinery},
-address = {New York, NY, USA},
-url = {https://doi.org/10.1145/3186411.3186415},
-doi = {10.1145/3186411.3186415},
-abstract = {Uninterrupted uptime is a critical aspect of Virtual Machines (VMs) offered by cloud hosting providers. Google's VMs run on top of rapidly changing infrastructure: we regularly update hardware and host software, and we must quickly respond to failing hardware. Frequent change is critical to both development velocity---deploying new versions of services and infrastructure---and the ability to respond rapidly to defects, including critical security fixes. Typically these updates would be disruptive, resulting in VM termination or restart. In this paper we present how we use VM live migration at scale to eliminate this disruption with minimal impact to the guest, performing over 1,000,0001migrations monthly in our production fleet, with 50ms median blackout, 300ms 99th percentile blackout.},
-booktitle = {Proceedings of the 14th ACM SIGPLAN/SIGOPS International Conference on Virtual Execution Environments},
-pages = {45–56},
-numpages = {12},
-location = {Williamsburg, VA, USA},
-series = {VEE '18}
+@inproceedings{vm-migration,
+author = {Clark, Christopher and Fraser, Keir and Hand, Steven and Hansen, Jacob Gorm and Jul, Eric and Limpach, Christian and Pratt, Ian and Warfield, Andrew},
+title = {Live migration of virtual machines},
+year = {2005},
+publisher = {USENIX Association},
+address = {USA},
+booktitle = {Proceedings of the 2nd Conference on Symposium on Networked Systems Design \& Implementation - Volume 2},
+pages = {273–286},
+series = {NSDI'05}
 }
 
-@article{10.1145/3296975.3186415,
+@article{google-live-migration-at-scale,
 author = {Ruprecht, Adam and Jones, Danny and Shiraev, Dmitry and Harmon, Greg and Spivak, Maya and Krebs, Michael and Baker-Harvey, Miche and Sanderson, Tyler},
 title = {VM Live Migration At Scale},
 year = {2018},
@@ -62,14 +34,22 @@ url = {https://doi.org/10.1145/3296975.3186415},
 doi = {10.1145/3296975.3186415},
 abstract = {Uninterrupted uptime is a critical aspect of Virtual Machines (VMs) offered by cloud hosting providers. Google's VMs run on top of rapidly changing infrastructure: we regularly update hardware and host software, and we must quickly respond to failing hardware. Frequent change is critical to both development velocity---deploying new versions of services and infrastructure---and the ability to respond rapidly to defects, including critical security fixes. Typically these updates would be disruptive, resulting in VM termination or restart. In this paper we present how we use VM live migration at scale to eliminate this disruption with minimal impact to the guest, performing over 1,000,0001migrations monthly in our production fleet, with 50ms median blackout, 300ms 99th percentile blackout.},
 journal = {SIGPLAN Not.},
-month = {mar},
+month = {Mar},
 pages = {45–56},
-numpages = {12}
 }
 
+@article{bare-metal-post-copy,
+author = {Im, Jaeseong and Kim, Jongyul and Kwon, Youngjin and Maeng, Seungryoul},
+year = {2022},
+month = {01},
+pages = {1-1},
+title = {On-Demand Virtualization for Post-Copy OS Migration in Bare-Metal Cloud},
+volume = {PP},
+journal = {IEEE Transactions on Cloud Computing},
+doi = {10.1109/TCC.2022.3179485}
+}
 
-
-@ARTICLE{file-backed-article,
+@article{file-backed-article,
   author={Peng, Ivy B. and Gokhale, Maya B. and Youssef, Karim and Iwabuchi, Keita and Pearce, Roger},
   journal={IEEE Transactions on Parallel and Distributed Systems}, 
   title={Enabling Scalable and Extensible Memory-Mapped Datastores in Userspace}, 
@@ -80,7 +60,7 @@ numpages = {12}
   keywords={Concurrent computing;Kernel;Databases;Optimization;Task analysis;Scalability;Prefetching;Data-intensive;userspace;memory mapping;mmap;memory-mapped I/O},
   doi={10.1109/TPDS.2021.3086302}}
 
-@INPROCEEDINGS{file-backed-proceeding,
+@inproceedings{file-backed-proceeding,
   author={Peng, Ivy and McFadden, Marty and Green, Eric and Iwabuchi, Keita and Wu, Kai and Li, Dong and Pearce, Roger and Gokhale, Maya},
   booktitle={2019 IEEE/ACM Workshop on Memory Centric High Performance Computing (MCHPC)}, 
   title={UMap: Enabling Application-driven Optimizations for Page Management}, 
@@ -89,19 +69,200 @@ numpages = {12}
   number={},
   pages={71-78},
   keywords={Memory management;Kernel;Optimization;Prefetching;Task analysis;memory mapping;memmap;page fault;user- space paging;userfaultfd;page management},
-  doi={10.1109/MCHPC49590.2019.00017}}
+  doi={10.1109/MCHPC49590.2019.00017}
+}
 
 @misc{uffd-blocking,
   author = {Jonathan Corbet},
   title = {Blocking userfaultfd() kernel-fault handling},
   year = {2020},
   howpublished = {\url{https://lwn.net/Articles/819834/}},
-    note = "[Online; accessed May 2024]"
+}
+
+@misc{sleepable-bpf,
+  author = {Jonathan Corbet},
+  title = {Sleepable BPF programs},
+  year = {2020},
+  howpublished = {\url{https://lwn.net/Articles/825415/}},
+}
+
+@misc{docker-seccomp,
+    Note = {\url{https://docs.docker.com/engine/security/seccomp}},
+    Title= {Seccomp security profiles for Docker},
+    key = {Docker}
+}
+
+@inproceedings{dirtycred,
+author = {Lin, Zhenpeng and Wu, Yuhang and Xing, Xinyu},
+title = {DirtyCred: Escalating Privilege in Linux Kernel},
+year = {2022},
+isbn = {9781450394505},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3548606.3560585},
+doi = {10.1145/3548606.3560585},
+booktitle = {Proceedings of the 2022 ACM SIGSAC Conference on Computer and Communications Security},
+pages = {1963–1976},
+keywords = {kernel exploitation, os security, privilege escalation},
+location = {Los Angeles, CA, USA},
+series = {CCS '22}
+}
+
+@misc{linux-uaf-cve,
+    author= {Jann Horn},
+    year = {2016},
+    howpublished = {\url{https://bugs.chromium.org/p/project-zero/issues/detail?id\%3D808}},
+    title= {CVE-2016-4557: Linux: UAF via double-fdput() in bpf(BPF\_PROG\_LOAD) error path},
+}
+
+@misc{linux-heap-cve,
+    author= {Vitaly Nikolenko},
+    year = {2016},
+    howpublished = {\url{https://duasynt.com/blog/cve-2016-6187-heap-off-by-one-exploit}},
+    Title= {CVE-2016-6187: Exploiting Linux kernel heap off-by-one},
+}
+
+@misc{linux-heap-spray,
+    author= {Vitaly Nikolenko},
+    year = {2018},
+    howpublished = {\url{https://duasynt.com/blog/linux-kernel-heap-spray}},
+    Title= {Linux Kernel universal heap spray},
+}
+
+@misc{per-cgroup-bpf,
+    author= {Daniel Mack},
+    year = {2016},
+    howpublished = {\url{https://lore.kernel.org/all/1479916350-28462-1-git-send-email-daniel@zonque.org/T/}},
+    Title= {Per-cgroup BPF Programs},
+}
+
+@inproceedings {firecracker,
+author = {Alexandru Agache and Marc Brooker and Alexandra Iordache and Anthony Liguori and Rolf Neugebauer and Phil Piwonka and Diana-Maria Popa},
+title = {Firecracker: Lightweight Virtualization for Serverless Applications },
+booktitle = {17th USENIX Symposium on Networked Systems Design and Implementation (NSDI 20)},
+year = {2020},
+isbn = {978-1-939133-13-7},
+address = {Santa Clara, CA},
+pages = {419--434},
+url = {https://www.usenix.org/conference/nsdi20/presentation/agache},
+publisher = {USENIX Association},
+month = feb
+}
+
+@inproceedings{SPIN,
+  title={Extensibility safety and performance in the {SPIN} operating system},
+  author={Bershad, Brian N and Savage, Stefan and Pardyak, Przemyslaw and Sirer, Emin G{\"u}n and Fiuczynski, Marc E and Becker, David and Chambers, Craig and Eggers, Susan},
+  booktitle={Proceedings of the fifteenth ACM symposium on Operating systems principles},
+  pages={267--283},
+  year={1995}
+}
+
+@article{LightSwap,
+  title={Revisiting Swapping in User-Space With Lightweight Threading},
+  author={Kan Zhong and Wenlin Cui and Xin Chen and Qiao Li and Zhe Yang and Youyou Lu and Xiaodan Yan and Siwei Luo and Qizhao Yuan and Keji Huang},
+  journal={IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems},
+  year={2021},
+  volume={42},
+  pages={4205-4218},
+  url={https://api.semanticscholar.org/CorpusID:236493177}
+}
+
+@inproceedings {zIO,
+author = {Timothy Stamler and Deukyeon Hwang and Amanda Raybuck and Wei Zhang and Simon Peter},
+title = {{zIO}: Accelerating {IO-Intensive} Applications with Transparent {Zero-Copy} {IO}},
+booktitle = {16th USENIX Symposium on Operating Systems Design and Implementation (OSDI 22)},
+year = {2022},
+isbn = {978-1-939133-28-1},
+address = {Carlsbad, CA},
+pages = {431--445},
+url = {https://www.usenix.org/conference/osdi22/presentation/stamler},
+publisher = {USENIX Association},
+month = jul
+}
+
+@misc{CRIU_Userfaultfd,
+  title = {CRIU},
+  year = {2019},
+  howpublished = {\url{https://criu.org}},
+  key = {CRIU Project}
+}
+
+@misc{Android_13_AOSP,
+  author = {Seang Chau},
+  title = {Android 13 is in AOSP},
+  year = {2022},
+  howpublished = {\url{https://android-developers.googleblog.com/2022/08/android-13-is-in-aosp.html}},
+}
+
+@misc{kernel_userfaultfd,
+  title = {Userfaultfd},
+  howpublished = {\url{https://www.kernel.org/doc/Documentation/vm/userfaultfd.txt}},
+  key = {Linux Documentation}
+}
+
+@misc{uffd_presentation,
+  author = {Andrea Arcangeli},
+  title = {Userland Page Faults and Beyond: Why How and What’s Next},
+  year = {2016},
+  howpublished = {\url{https://www.linux-kvm.org/images/1/10/01Wed-1415-LinuxCON-aarcangeli-userfaultfd.pdf}}
+}
+
+@article{garbage_collection_paper,
+  title={Utilizing the Linux Userfaultfd System Call in a Compaction Phase of a Garbage Collection Process},
+  author={Gidra, Lokesh and Boehm, Hans-J. and Fernandes, Joel},
+  journal={Technical Disclosure Commons},
+  year={2020},
+  month={10},
+  day={12},
+  url={https://www.tdcommons.org/dpubs_series/3671}
+}
+
+@misc{LWN_Write-protect,
+  author = {Jonathan Corbet},
+  title = {Write-protect for userfaultfd()},
+  year = {2019},
+  howpublished = {\url{https://lwn.net/Articles/787308}},
+}
+
+@misc{LWN_next_step,
+  author = {Jonathan Corbet},
+  title = {The next steps for userfaultfd()},
+  year = {2017},
+  howpublished = {\url{https://lwn.net/Articles/718198}},
+}
+
+@inproceedings{uffd-security-framework-paper,
+author = {Lyerly, Robert and Wang, Xiaoguang and Ravindran, Binoy},
+title = {Dynamic and Secure Memory Transformation in Userspace},
+year = {2020},
+isbn = {978-3-030-58950-9},
+publisher = {Springer-Verlag},
+address = {Berlin, Heidelberg},
+url = {https://doi.org/10.1007/978-3-030-58951-6_12},
+doi = {10.1007/978-3-030-58951-6_12},
+booktitle = {Computer Security – ESORICS 2020: 25th European Symposium on Research in Computer Security, ESORICS 2020, Guildford, UK, September 14–18, 2020, Proceedings, Part I},
+pages = {237–256},
+location = {Guildford, United Kingdom}
+}
+
+@misc{LPC-presentation,
+  author = {Mike Rapoport},
+  title = {Userfaultfd: Post-copy VM Migration and Beyond},
+  year = {2017},
+  howpublished = {\url{https://blog.linuxplumbersconf.org/2017/ocw/system/presentations/4699/original/userfaultfd_\%20post-copy\%20VM\%20migration\%20and\%20beyond.pdf}},
 }
 
 
+@misc{TrailDB,
+  author = {Ville Tuulos},
+  title = {Querying Data in Amazon S3 Directly with User-Space Page Fault Handling},
+  year = {2016},
+  howpublished = {\url{https://tech.nextroll.com/blog/data/2016/11/29/traildb-mmap-s3.html}},
+}
 
 
-
-
-https://www.kernel.org/doc/Documentation/vm/userfaultfd.txt
+@misc{chromium-elf,
+  title = {Native Relocations},
+  howpublished = {\url{https://chromium.googlesource.com/chromium/src/+/master/docs/native_relocations.md\#Linux-Android-Relocations-ELF-Format}},
+  key = {Chromium},
+}
