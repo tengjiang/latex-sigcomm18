@@ -1,65 +1,128 @@
-\documentclass[sigconf]{acmart}
+\documentclass[sigconf,9pt]{acmart}
 
-\usepackage[english]{babel}
-\usepackage{blindtext}
+%\usepackage[english]{babel}
+%\usepackage{blindtext}
+%\usepackage{listings}
+\usepackage{tikz}
 
-% Copyright
-\renewcommand\footnotetextcopyrightpermission[1]{} % removes footnote with conference info
-\setcopyright{none}
-%\setcopyright{acmcopyright}
-%\setcopyright{acmlicensed}
-%\setcopyright{rightsretained}
-%\setcopyright{usgov}
-%\setcopyright{usgovmixed}
-%\setcopyright{cagov}
-%\setcopyright{cagovmixed}
+%\usepackage[compact]{titlesec}
+%\newcommand{\newtodo}[1]{\textcolor{red}{#1}}
+
+\newcommand{\pgftextcircled}[1]{
+    \setbox0=\hbox{#1}%
+    \dimen0\wd0%
+    \divide\dimen0 by 2%
+    \begin{tikzpicture}[baseline=(a.base)]%
+        \useasboundingbox (-\the\dimen0,0pt) rectangle (\the\dimen0,1pt);
+        \node[circle,draw,outer sep=0pt,inner sep=0.1ex] (a) {#1};
+    \end{tikzpicture}
+}
+
+\usepackage{enumitem}
+\setitemize{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}
+\setenumerate{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}
+\setdescription{itemsep=0pt,topsep=0pt,parsep=0pt,partopsep=0pt,itemindent=0em,leftmargin=0.5em}
+
+% \us: "microseconds"
+\newcommand{\us}{\textmu{}s\xspace}
+
+%compressed environments
+\newenvironment{denseitemize}{
+\begin{itemize}[topsep=2pt, partopsep=0pt, leftmargin=1.5em]
+  \setlength{\itemsep}{2pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{itemize}}
+
+\newenvironment{denseenum}{
+\begin{enumerate}[topsep=2pt, partopsep=0pt, leftmargin=1.5em]
+  \setlength{\itemsep}{2pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{enumerate}}
+
+\def\ie{{i.e.\ }}
+\def\eg{{e.g.,\ }}
+\def\etal{{et al.\xspace}}
+\def\wrt{{w.r.t.\xspace}}
+\def\etc{etc.\xspace}
+
+\def\name{\texttt{cache\_ext}\xspace}
+
+\newcommand{\tailpct}[0]{99\textsuperscript{th}-percentile}
+\newcommand{\tailpctnnn}[0]{99.9\textsuperscript{th}-percentile}
+
+\newcommand{\taillatency}[0]{\tailpct{} latency}
+\newcommand{\taillatencynnn}[0]{\tailpctnnn{} latency}
+
+\iftrue
+\newcommand{\asaf}[1]{\textcolor{red}{\{Asaf: #1\}}}
+\newcommand{\tal}[1]{\textcolor{red}{\{Tal: #1\}}}
+\newcommand{\teng}[1]{\textcolor{red}{\{Teng: #1\}}}
+\else
+\newcommand{\asaf}[1]{}
+\newcommand{\tal}[1]{}
+\newcommand{\teng}[1]{}
+\fi
+
+\newcommand{\uffd}{\texttt{userfaultfd()}~}
 
 \settopmatter{printacmref=false, printccs=false, printfolios=true}
-
-% DOI
-\acmDOI{}
-
-% ISBN
-\acmISBN{}
-
-%Conference
-%\acmConference[Submitted for review to SIGCOMM]{}
-%\acmYear{2018}
-%\copyrightyear{}
 
 %% {} with no args suppresses printing of the price
 \acmPrice{}
 
-
 \begin{document}
-\title{A \LaTeX\ Template for SIGCOMM 18}
 
-%\titlenote{Produces the permission block, and copyright information}
-%\subtitle{Extended Abstract}
+\acmYear{2024}
+\copyrightyear{2024}
+\setcopyright{rightsretained}
+\acmConference[eBPF '24]{Workshop on eBPF and Kernel Extensions}{August 4--8, 2024}{Sydney, NSW, Australia}
+\acmBooktitle{Workshop on eBPF and Kernel Extensions (eBPF '24), August 4--8, 2024, Sydney, NSW, Australia}
+\acmDOI{10.1145/3672197.3673432}
+\acmISBN{979-8-4007-0712-4/24/08}
 
-\author{Paper \# XXX, XXX pages}
-% \author{Firstname Lastname}
-% \authornote{Note}
-% \orcid{1234-5678-9012}
-% \affiliation{%
-%   \institution{Affiliation}
-%   \streetaddress{Address}
-%   \city{City} 
-%   \state{State} 
-%   \postcode{Zipcode}
-% }
-% \email{email@domain.com}
+\title{Custom Page Fault Handling With eBPF}
+
+%\author{Submission \#19, 2 pages}
+
+\author{Tal Zussman}
+\authornote{Equal contribution}
+\affiliation{
+    \institution{Columbia University}
+}
+\email{tz2294@columbia.edu}
+
+\author{Teng Jiang}
+\authornotemark[1]
+\affiliation{
+    \institution{Columbia University}
+}
+\email{tj2488@columbia.edu}
+
+\author{Asaf Cidon}
+\affiliation{
+    \institution{Columbia University}
+}
+\email{asaf.cidon@columbia.edu}
 
 % The default list of authors is too long for headers}
-\renewcommand{\shortauthors}{X.et al.}
+%\renewcommand{\shortauthors}{}
 
-\begin{abstract}
-    \blindtext
-\end{abstract}
+\input{abstract}
 
 \maketitle
 
-\input{body}
+% Remove page numbers for camera-ready
+\pagenumbering{gobble}
+
+\input{background}
+\input{motivation}
+\input{design}
+
+\input{acknowledgments}
+
+\label{lastpage}
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{reference}
